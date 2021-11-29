@@ -6,9 +6,7 @@ function App() {
   return (
     <React.Fragment>
       <GlobalProvider>
-        <div className="lg:w-3/4 m-auto">
-          <MainRouter />
-        </div>
+        <MainRouter />
       </GlobalProvider>
     </React.Fragment>
   );

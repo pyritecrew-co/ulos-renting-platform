@@ -7,9 +7,17 @@ import SidebarCommon from "../common/sidebar.common";
 const Layout = () => {
   return (
     <React.Fragment>
-      <NavbarCommon />
+      <div className="lg:w-3/4 m-auto">
+        <NavbarCommon />
+      </div>
+      <div className="lg:w-3/4 m-auto">
+        <Outlet />
+      </div>
+
       <SidebarCommon />
-      <Outlet />
+      <br />
+      <br />
+
       <FooterCommon />
     </React.Fragment>
   );

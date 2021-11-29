@@ -1,9 +1,12 @@
 import React from "react";
+import HeroComponent from "./components/hero.component";
 
 const HomePage = () => {
   return (
     <React.Fragment>
-      <h1>HOME</h1>
+      <div className="m-5">
+        <HeroComponent />
+      </div>
     </React.Fragment>
   );
 };

@@ -11,7 +11,7 @@ const NavbarCommon = () => {
     <React.Fragment>
       <div className="p-3 flex flex-row justify-between items-center">
         <div className="flex flex-row justify-between w-full items-center">
-          <div className="lg:p-3 text-green-600 font-bold text-3xl">Ulos</div>
+          <div className="lg:p-2 text-gray-900 font-bold text-2xl">Ulos</div>
           <div
             className="lg:hidden rounded p-3 hover:bg-gray-200"
             onClick={() =>
@@ -29,7 +29,7 @@ const NavbarCommon = () => {
             return (
               <div
                 key={item.id}
-                className="hover:text-green-600 cursor-pointer"
+                className="hover:text-gray-500 cursor-pointer"
                 onClick={() => navigate(item.route)}
               >
                 {item.name}
