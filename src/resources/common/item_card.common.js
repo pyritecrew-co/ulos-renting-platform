@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillStar } from "react-icons/ai";
 
 const ItemCardCommon = ({ product, stars, price, img }) => {
@@ -26,22 +26,12 @@ const ItemCardCommon = ({ product, stars, price, img }) => {
 export default ItemCardCommon;
 
 const StarCounter = ({ startCount }) => {
-  const [star, setStars] = useState([]);
-  const looper = () => {
-    let arrayContainer = [];
-    for (let i = 0; i < startCount; i++) {
-      arrayContainer.push(i);
-    }
-    setStars(arrayContainer);
-  };
-  useEffect(() => {
-    looper();
-  }, []);
+  let array = [1, 2, 3, 4, 5];
   return (
     <React.Fragment>
       <div className="flex flex-row items-center">
-        {star.map((item) => {
-          return <AiFillStar key={item} className="text-yellow-500" />;
+        {[...Array(array[startCount - 1])].map((item, key) => {
+          return <AiFillStar key={key} className="text-yellow-500" />;
         })}
       </div>
     </React.Fragment>

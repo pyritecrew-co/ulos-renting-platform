@@ -20,6 +20,7 @@ const RequestPage = () => {
             } = item;
             return (
               <RequestCardCommon
+                key={user_id}
                 user={user_id}
                 rentalProduct={rental_product}
                 description={descryption}

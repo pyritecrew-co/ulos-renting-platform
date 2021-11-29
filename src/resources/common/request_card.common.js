@@ -1,6 +1,5 @@
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { RiSearchFill } from "react-icons/ri";
 
 const RequestCardCommon = ({
   user,
