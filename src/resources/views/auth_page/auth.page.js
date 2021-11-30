@@ -10,10 +10,12 @@ export const AUTH_TYPE = {
   register: "SIGNUP",
 };
 
+// VALIDATION RULES FOR EMAIL
 const emailValidRule = Yup.string()
   .required("This field is required")
   .email("Enter a valid Email");
 
+// VALIDATION RULES FOR PASWORD
 const passwordValidRule = Yup.string()
   .required("This field is required")
   .matches(
@@ -26,7 +28,7 @@ const AuthPage = ({ type }) => {
   // =======================================
   // CUSTOM HOOKS
   // =======================================
-  let { renderBusy } = useResponseHelper();
+  let { renderFail, renderSucceed, renderBusy } = useResponseHelper();
   // =======================================
   // NAVIGATION HANDLER
   // =======================================
@@ -47,8 +49,11 @@ const AuthPage = ({ type }) => {
     onSubmit: async (values) => {
       renderBusy(true);
       await AuthService.register(values)
-        .then(() => navigate("/home"))
-        .catch((err) => console.log(err));
+        .then(() => {
+          renderSucceed({ message: "Successfully created new account" });
+          navigate("/home");
+        })
+        .catch((err) => renderFail({ message: err.message }));
       renderBusy(false);
     },
   });
@@ -65,8 +70,11 @@ const AuthPage = ({ type }) => {
     onSubmit: async (values) => {
       renderBusy(true);
       await AuthService.login(values)
-        .then(() => navigate("/home"))
-        .catch((err) => console.log(err.message));
+        .then(() => {
+          renderSucceed({ message: "Successfully logged in" });
+          navigate("/home");
+        })
+        .catch((err) => renderFail({ message: err.message }));
       renderBusy(false);
     },
   });

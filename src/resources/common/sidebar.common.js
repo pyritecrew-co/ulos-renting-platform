@@ -50,10 +50,14 @@ const SidebarCommon = () => {
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
                     <div className="flex flex-col justify-between">
-                      <div>
-                        <p className="p-4">{global.currentUser.email}</p>
-                      </div>
-                      <hr />
+                      {global.currentUser !== null && (
+                        <div>
+                          <div>
+                            <p className="p-4">{global.currentUser?.email}</p>
+                          </div>
+                          <hr />
+                        </div>
+                      )}
                       <div>
                         <ul className="">
                           {navbarItems.map((item) => {

@@ -4,6 +4,10 @@ export const INIT_GLOBAL = {
   success: false,
   toggleSidebar: false,
   currentUser: null,
+  response: {
+    title: "",
+    message: "",
+  },
 };
 
 export const GLOBAL_ACTION_TYPE = {
@@ -12,6 +16,7 @@ export const GLOBAL_ACTION_TYPE = {
   setError: "SET_ERROR",
   setSuccess: "SET_SUCCEED",
   setBusy: "SET_BUSY",
+  setMessage: "SET_MESSAGE",
 };
 
 export const globalReducer = (state, action) => {
@@ -22,6 +27,12 @@ export const globalReducer = (state, action) => {
       return setCurrentUser(state, action.payload);
     case GLOBAL_ACTION_TYPE.setBusy:
       return setBusyLoader(state, action.payload);
+    case GLOBAL_ACTION_TYPE.setError:
+      return setErrorResponse(state, action.payload);
+    case GLOBAL_ACTION_TYPE.setSuccess:
+      return setSuccessResponse(state, action.payload);
+    case GLOBAL_ACTION_TYPE.setMessage:
+      return setMessageResponse(state, action.payload);
     default:
       return state;
   }
@@ -46,5 +57,30 @@ const setBusyLoader = (state, payload) => {
   return {
     ...state,
     loading: payload,
+  };
+};
+
+const setErrorResponse = (state, payload) => {
+  return {
+    ...state,
+    error: payload,
+  };
+};
+
+const setSuccessResponse = (state, payload) => {
+  return {
+    ...state,
+    success: payload,
+  };
+};
+
+const setMessageResponse = (state, payload) => {
+  let { title, message } = payload;
+  return {
+    ...state,
+    response: {
+      title,
+      message,
+    },
   };
 };

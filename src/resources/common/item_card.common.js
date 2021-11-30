@@ -5,7 +5,7 @@ const ItemCardCommon = ({ product, stars, price, img }) => {
   return (
     <React.Fragment>
       <div className="transition delay-200 transform hover:-translate-y-2 rounded">
-        <div className="w-72 h-96 ">
+        <div className="h-96">
           <img
             className="object-cover h-full rounded"
             src={img}

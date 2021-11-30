@@ -6,14 +6,13 @@ const HeroComponent = () => {
   let navigate = useNavigate();
   return (
     <React.Fragment>
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
+      <div className="mx-3 lg:mx-0 grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
         <div className="flex flex-col justify-center">
           <p className="lg:font-bold text-xl lg:text-3xl">
             Looking for something?
           </p>
           <br className="hidden lg:block" />
           <p className="font-bold text-4xl lg:text-5xl">WE GOT YOU COVERED!</p>
-          <br />
           <br />
           <p>
             Fortifying your renting needs wherever you are. ULOS (Unified

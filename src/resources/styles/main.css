@@ -5,8 +5,8 @@
 
 /*
 * Z-INDEXES
-* LOADING: 100
-* ERROR AND SUCCESS: 200
+* LOADING: 10
+* ERROR AND SUCCESS: 20
 */
 
 input {
@@ -31,8 +31,7 @@ h2 {
 
 /* LOADER DESIGN ANIMATION STARTS HERE */
 .loading-container {
-  @apply fixed h-screen w-screen flex flex-col justify-center items-center;
-  z-index: 100;
+  @apply fixed h-screen w-screen flex flex-col justify-center items-center z-10;
   backdrop-filter: blur(6px);
 }
 .lds-circle {
@@ -40,7 +39,7 @@ h2 {
   transform: translateZ(1px);
 }
 .lds-circle > div {
-  @apply bg-gray-900 inline-block rounded-full;
+  @apply bg-green-600 inline-block rounded-full;
   width: 64px;
   height: 64px;
   margin: 8px;
@@ -62,4 +61,16 @@ h2 {
     transform: rotateY(3600deg);
   }
 }
-/* LOADER DESIGN ANIMATION ENDS HERE */
+
+/* SUCCESS/ERROR RESPONSE ANIMATION STARTS HERE*/
+.succ-err-res {
+  animation: succ-err-res 1s;
+}
+@keyframes succ-err-res {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

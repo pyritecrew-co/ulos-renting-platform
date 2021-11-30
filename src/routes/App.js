@@ -1,6 +1,10 @@
 import React from "react";
 import { useGlobalContext } from "../providers/global_provider/global.context";
-import { DisplayLoadingCommon } from "../resources/common/response.common";
+import {
+  DisplayErrorCommon,
+  DisplayLoadingCommon,
+  DisplaySuccessCommon,
+} from "../resources/common/response.common";
 import MainRouter from "./router";
 
 function App() {
@@ -8,6 +12,9 @@ function App() {
   return (
     <React.Fragment>
       {global.loading && <DisplayLoadingCommon />}
+      {global.error && <DisplayErrorCommon />}
+      {global.success && <DisplaySuccessCommon />}
+
       <MainRouter />
     </React.Fragment>
   );

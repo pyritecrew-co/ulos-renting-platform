@@ -5,7 +5,7 @@ import { requestFakeData } from "./request.fakedata";
 const RequestPage = () => {
   return (
     <React.Fragment>
-      <div className="m-6">
+      <div className="mx-3 flex flex-col items-center lg:items-start lg:mx-0 my-6">
         <h1>REQUEST CATALOG</h1>
         <br />
         <div className="grid grid-cols-1 justify-items-center lg:grid-cols-3 lg:justify-items-stretch gap-6">

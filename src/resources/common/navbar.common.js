@@ -4,17 +4,20 @@ import { RiMenu3Line } from "react-icons/ri";
 import { useGlobalContext } from "../../providers/global_provider/global.context";
 import { GLOBAL_ACTION_TYPE } from "../../providers/global_provider/global.reducer";
 import AuthService from "../../service/auth.service";
+import useResponseHelper from "../../helpers/custom_hooks/use_response.helper";
 
 const NavbarCommon = () => {
   let { global, globalDispatch } = useGlobalContext();
   let navigate = useNavigate();
   return (
     <React.Fragment>
-      <div className="p-3 flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row justify-between w-full items-center">
-          <div className="lg:p-2 text-gray-900 font-bold text-2xl">Ulos</div>
+          <div className="ml-3 lg:ml-0 py-6 text-gray-900 font-bold text-2xl cursor-pointer">
+            Ulos
+          </div>
           <div
-            className="lg:hidden rounded p-3 hover:bg-gray-200"
+            className="lg:hidden rounded p-3 hover:bg-gray-200 cursor-pointer"
             onClick={() =>
               globalDispatch({
                 type: GLOBAL_ACTION_TYPE.setToggle,
@@ -62,6 +65,7 @@ export default NavbarCommon;
 
 export const UserCredentialInfo = () => {
   let { global } = useGlobalContext();
+  let { renderBusy } = useResponseHelper();
   useEffect(() => console.log(global));
   return (
     <React.Fragment>
@@ -75,8 +79,10 @@ export const UserCredentialInfo = () => {
             <p className="text-xs text-gray-400 px-2">|</p>
             <p
               className="text-xs text-gray-400 hover:text-white"
-              onClick={() => {
-                AuthService.logout();
+              onClick={async () => {
+                renderBusy(true);
+                await AuthService.logout();
+                renderBusy(false);
               }}
             >
               LOGOUT

@@ -4,9 +4,11 @@ import {
   signOut,
 } from "@firebase/auth";
 import { auth } from "../config/firebase.config";
+
 /**
  * Login Function
  * @param {object} values object with email and password keys
+ * @returns id
  */
 const login = async (values) => {
   let { email, password } = values;

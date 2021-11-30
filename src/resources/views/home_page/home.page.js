@@ -4,9 +4,7 @@ import HeroComponent from "./components/hero.component";
 const HomePage = () => {
   return (
     <React.Fragment>
-      <div className="m-5">
-        <HeroComponent />
-      </div>
+      <HeroComponent />
     </React.Fragment>
   );
 };

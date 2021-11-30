@@ -3,9 +3,9 @@ import React from "react";
 const FooterCommon = () => {
   return (
     <React.Fragment>
-      <div className="bottom-0 bg-gray-900">
+      <div className="bg-gray-900">
         <div className="lg:w-3/4 m-auto text-white py-10">
-          <div className="flex flex-col lg:flex-row justify-between m-4">
+          <div className="my-4 mx-3 flex flex-col lg:flex-row justify-between  lg:mx-0">
             <div className="lg:w-1/2 mb-5 text-center lg:text-left">
               <h1 className="font-bold">Red Store</h1>
               <br />
@@ -39,7 +39,7 @@ const FooterCommon = () => {
               </p>
             </div>
           </div>
-          <div className="text-xs pt-5 text-gray-600 mx-4 text-center lg:text-left">
+          <div className="text-xs mx-3 pt-5 text-gray-600 lg:mx-0 text-center lg:text-left">
             <p>
               COPYRIGHT &copy;{" "}
               <span className="hover:underline hover:text-white cursor-pointer">
