@@ -1,4 +1,3 @@
-import { parse } from "postcss";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 

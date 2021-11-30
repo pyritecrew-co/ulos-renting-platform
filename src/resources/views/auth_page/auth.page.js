@@ -17,7 +17,7 @@ const emailValidRule = Yup.string()
 const passwordValidRule = Yup.string()
   .required("This field is required")
   .matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/,
+    `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])`,
     "Must Contain a number, a special character and a capital letter"
   )
   .min(8, "Password must be minimum of 8");
