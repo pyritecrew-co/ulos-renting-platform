@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { RiMenu3Line } from "react-icons/ri";
 import { useGlobalContext } from "../../providers/global_provider/global.context";
 import { GLOBAL_ACTION_TYPE } from "../../providers/global_provider/global.reducer";
+import AuthService from "../../service/auth.service";
 
 const NavbarCommon = () => {
-  let { globalDispatch } = useGlobalContext();
+  let { global, globalDispatch } = useGlobalContext();
   let navigate = useNavigate();
   return (
     <React.Fragment>
@@ -24,17 +25,32 @@ const NavbarCommon = () => {
           </div>
         </div>
         {/* For Web */}
-        <div className="hidden lg:flex lg:flex-row lg:space-x-5">
+        <div className="hidden lg:flex lg:flex-row lg:space-x-5 items-center justify-center">
           {navbarItems.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="hover:text-gray-500 cursor-pointer"
-                onClick={() => navigate(item.route)}
-              >
-                {item.name}
-              </div>
-            );
+            if (global.currentUser === null) {
+              return (
+                <div
+                  key={item.id}
+                  className="hover:text-gray-500 cursor-pointer"
+                  onClick={() => navigate(item.route)}
+                >
+                  {item.name}
+                </div>
+              );
+            } else {
+              if (item.name !== "Login" && item.name !== "Signup") {
+                return (
+                  <div
+                    key={item.id}
+                    className="hover:text-gray-500 cursor-pointer"
+                    onClick={() => navigate(item.route)}
+                  >
+                    {item.name}
+                  </div>
+                );
+              }
+            }
+            return null;
           })}
         </div>
       </div>
@@ -43,6 +59,34 @@ const NavbarCommon = () => {
 };
 
 export default NavbarCommon;
+
+export const UserCredentialInfo = () => {
+  let { global } = useGlobalContext();
+  useEffect(() => console.log(global));
+  return (
+    <React.Fragment>
+      {global.currentUser !== null ? (
+        <div className="hidden lg:bg-gray-900 lg:py-2 lg:px-3 lg:flex lg:flex-row lg:items-center lg:justify-between">
+          <div className="cursor-pointer">
+            <p className="text-xs text-gray-400">ULOS RENTING PLATFORM 2021</p>
+          </div>
+          <div className="flex flex-row items-center justify-end cursor-pointer">
+            <p className="text-xs text-gray-400">{global.currentUser?.email}</p>
+            <p className="text-xs text-gray-400 px-2">|</p>
+            <p
+              className="text-xs text-gray-400 hover:text-white"
+              onClick={() => {
+                AuthService.logout();
+              }}
+            >
+              LOGOUT
+            </p>
+          </div>
+        </div>
+      ) : undefined}
+    </React.Fragment>
+  );
+};
 
 export const navbarItems = [
   {

@@ -3,11 +3,20 @@ import { RiCloseFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { useGlobalContext } from "../../providers/global_provider/global.context";
 import { GLOBAL_ACTION_TYPE } from "../../providers/global_provider/global.reducer";
+import AuthService from "../../service/auth.service";
 import { navbarItems } from "./navbar.common";
 
 const SidebarCommon = () => {
   const { global, globalDispatch } = useGlobalContext();
   let navigate = useNavigate();
+
+  const onLogout = () => {
+    AuthService.logout();
+    navigate("/home");
+    globalDispatch({
+      type: GLOBAL_ACTION_TYPE.setToggle,
+    });
+  };
   return (
     <React.Fragment>
       {global.toggleSidebar && (
@@ -40,24 +49,67 @@ const SidebarCommon = () => {
 
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
-                    <ul className="">
-                      {navbarItems.map((item) => {
-                        return (
-                          <li
-                            className="p-3 hover:bg-gray-200"
-                            key={item.id}
-                            onClick={() => {
-                              navigate(item.route);
-                              globalDispatch({
-                                type: GLOBAL_ACTION_TYPE.setToggle,
-                              });
-                            }}
-                          >
-                            {item.name}
-                          </li>
-                        );
-                      })}
-                    </ul>
+                    <div className="flex flex-col justify-between">
+                      <div>
+                        <p className="p-4">{global.currentUser.email}</p>
+                      </div>
+                      <hr />
+                      <div>
+                        <ul className="">
+                          {navbarItems.map((item) => {
+                            if (global.currentUser !== null) {
+                              if (
+                                item.name !== "Login" &&
+                                item.name !== "Signup"
+                              ) {
+                                return (
+                                  <li
+                                    className="p-3 hover:bg-gray-200"
+                                    key={item.id}
+                                    onClick={() => {
+                                      navigate(item.route);
+                                      globalDispatch({
+                                        type: GLOBAL_ACTION_TYPE.setToggle,
+                                      });
+                                    }}
+                                  >
+                                    {item.name}
+                                  </li>
+                                );
+                              }
+                            } else {
+                              return (
+                                <li
+                                  className="p-3 hover:bg-gray-200"
+                                  key={item.id}
+                                  onClick={() => {
+                                    navigate(item.route);
+                                    globalDispatch({
+                                      type: GLOBAL_ACTION_TYPE.setToggle,
+                                    });
+                                  }}
+                                >
+                                  {item.name}
+                                </li>
+                              );
+                            }
+                            return null;
+                          })}
+                        </ul>
+                      </div>
+                      <div>
+                        {global.currentUser !== null && (
+                          <ul>
+                            <li
+                              className="p-3 hover:bg-gray-200"
+                              onClick={() => onLogout()}
+                            >
+                              Logout
+                            </li>
+                          </ul>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-6 relative flex-1 px-4 sm:px-6"></div>
                 </div>

@@ -1,3 +1,4 @@
+import { parse } from "postcss";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 
@@ -14,7 +15,7 @@ const ItemCardCommon = ({ product, stars, price, img }) => {
         </div>
         <h2 className="font-bold py-1">{product}</h2>
         <div className="flex flex-row items-center">
-          <StarCounter startCount={stars} />
+          <StarCounter starCount={stars} />
           <p className="pl-2">({stars})</p>
         </div>
         <p className="font-bold">&#36; {price}</p>
@@ -25,12 +26,12 @@ const ItemCardCommon = ({ product, stars, price, img }) => {
 
 export default ItemCardCommon;
 
-const StarCounter = ({ startCount }) => {
-  let array = [1, 2, 3, 4, 5];
+// FIXME: starCount cant be recognize as integer value, always in string format
+const StarCounter = ({ starCount }) => {
   return (
     <React.Fragment>
       <div className="flex flex-row items-center">
-        {[...Array(array[startCount - 1])].map((item, key) => {
+        {[...Array(parseInt(starCount))].map((item, key) => {
           return <AiFillStar key={key} className="text-yellow-500" />;
         })}
       </div>

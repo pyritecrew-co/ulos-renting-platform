@@ -8,7 +8,7 @@ const HeroComponent = () => {
     <React.Fragment>
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
         <div className="flex flex-col justify-center">
-          <p className="font-bold text-xl lg:text-3xl">
+          <p className="lg:font-bold text-xl lg:text-3xl">
             Looking for something?
           </p>
           <br className="hidden lg:block" />

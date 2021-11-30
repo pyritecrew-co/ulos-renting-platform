@@ -1,13 +1,14 @@
 import React from "react";
-import GlobalProvider from "../providers/global_provider/global.context";
+import { useGlobalContext } from "../providers/global_provider/global.context";
+import { DisplayLoadingCommon } from "../resources/common/response.common";
 import MainRouter from "./router";
 
 function App() {
+  let { global } = useGlobalContext();
   return (
     <React.Fragment>
-      <GlobalProvider>
-        <MainRouter />
-      </GlobalProvider>
+      {global.loading && <DisplayLoadingCommon />}
+      <MainRouter />
     </React.Fragment>
   );
 }

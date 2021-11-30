@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+* Z-INDEXES
+* LOADING: 100
+* ERROR AND SUCCESS: 200
+*/
+
 input {
   @apply border w-full p-1 text-lg rounded border-gray-400;
 }
@@ -22,3 +28,38 @@ h1 {
 h2 {
   @apply text-2xl;
 }
+
+/* LOADER DESIGN ANIMATION STARTS HERE */
+.loading-container {
+  @apply fixed h-screen w-screen flex flex-col justify-center items-center;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+}
+.lds-circle {
+  @apply inline-block;
+  transform: translateZ(1px);
+}
+.lds-circle > div {
+  @apply bg-gray-900 inline-block rounded-full;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes lds-circle {
+  0%,
+  100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+/* LOADER DESIGN ANIMATION ENDS HERE */

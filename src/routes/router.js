@@ -13,10 +13,20 @@ const MainRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/home" />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/browse" element={<BrowsePage />} />
-            <Route path="/request" element={<RequestPage />} />
+            <Route
+              path="/signup"
+              element={<AuthPage type={AUTH_TYPE.register} />}
+            />
+            <Route
+              path="/login"
+              element={<AuthPage type={AUTH_TYPE.login} />}
+            />
+            <>
+              <Route index element={<Navigate to="/home" />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/browse" element={<BrowsePage />} />
+              <Route path="/request" element={<RequestPage />} />
+            </>
             <Route
               path="/signup"
               element={<AuthPage type={AUTH_TYPE.register} />}
