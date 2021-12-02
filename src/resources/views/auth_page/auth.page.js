@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import AuthService from "../../../service/auth.service";
 import useResponseHelper from "../../../helpers/custom_hooks/use_response.helper";
+import { useScrollTopHelper } from "../../../helpers/custom_hooks/use_scroll_top.helper";
 
 export const AUTH_TYPE = {
   login: "LOGIN",
@@ -29,6 +30,7 @@ const AuthPage = ({ type }) => {
   // CUSTOM HOOKS
   // =======================================
   let { renderFail, renderSucceed, renderBusy } = useResponseHelper();
+  useScrollTopHelper();
   // =======================================
   // NAVIGATION HANDLER
   // =======================================

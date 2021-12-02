@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { RiMenu3Line } from "react-icons/ri";
 import { useGlobalContext } from "../../providers/global_provider/global.context";
@@ -66,7 +66,7 @@ export default NavbarCommon;
 export const UserCredentialInfo = () => {
   let { global } = useGlobalContext();
   let { renderBusy } = useResponseHelper();
-  useEffect(() => console.log(global));
+
   return (
     <React.Fragment>
       {global.currentUser !== null ? (

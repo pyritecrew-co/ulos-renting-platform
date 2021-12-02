@@ -12,14 +12,14 @@ const RequestCardCommon = ({
   return (
     <React.Fragment>
       <div>
-        <div className="transition delay-200 transform hover:-translate-y-2 border p-10 shadow-xl">
-          <p className="text-3xl font-bold">User{user}</p>
+        <div className="transition delay-200 transform hover:-translate-y-2 border p-10 shadow-xl rounded">
+          <p className="lg:text-xl font-bold">User: {user}</p>
           <p>
             is looking for <strong>{rentalProduct}</strong>
           </p>
           <br />
           <p>Description: {description}</p>
-
+          <br />
           <p>
             Price range:{" "}
             <strong>

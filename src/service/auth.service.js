@@ -3,7 +3,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "@firebase/auth";
-import { auth } from "../config/firebase.config";
+import { authentication } from "../config/firebase.config";
+
+// FIXME: from offline going to online login creates an infinite loading screen
 
 /**
  * Login Function
@@ -12,12 +14,14 @@ import { auth } from "../config/firebase.config";
  */
 const login = async (values) => {
   let { email, password } = values;
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    console.log(error.message);
-    throw error;
-  }
+
+  await signInWithEmailAndPassword(authentication, email, password)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 /**
@@ -26,12 +30,14 @@ const login = async (values) => {
  */
 const register = async (values) => {
   let { email, password } = values;
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    console.log(error.message);
-    throw error;
-  }
+
+  await createUserWithEmailAndPassword(authentication, email, password)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 /**
@@ -39,7 +45,7 @@ const register = async (values) => {
  */
 const logout = async () => {
   try {
-    await signOut(auth);
+    await signOut(authentication);
   } catch (error) {
     console.log(error.message);
     throw error;

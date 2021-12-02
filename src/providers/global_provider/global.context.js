@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from "@firebase/auth";
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { auth } from "../../config/firebase.config";
+import { authentication } from "../../config/firebase.config";
 import {
   globalReducer,
   GLOBAL_ACTION_TYPE,
@@ -17,13 +17,19 @@ const GlobalProvider = ({ children }) => {
   const [global, globalDispatch] = useReducer(globalReducer, INIT_GLOBAL);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+    onAuthStateChanged(authentication, (currentUser) => {
       globalDispatch({
         type: GLOBAL_ACTION_TYPE.setUser,
         payload: currentUser,
       });
     });
+    const intervalCheck = setInterval(() => {
+      globalDispatch({
+        type: GLOBAL_ACTION_TYPE.setOnline,
+        payload: navigator.onLine,
+      });
+    }, [1000]);
+    return () => clearInterval(intervalCheck);
   }, []);
 
   return (

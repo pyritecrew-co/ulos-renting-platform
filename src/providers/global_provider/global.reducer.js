@@ -8,6 +8,7 @@ export const INIT_GLOBAL = {
     title: "",
     message: "",
   },
+  online: true,
 };
 
 export const GLOBAL_ACTION_TYPE = {
@@ -17,6 +18,7 @@ export const GLOBAL_ACTION_TYPE = {
   setSuccess: "SET_SUCCEED",
   setBusy: "SET_BUSY",
   setMessage: "SET_MESSAGE",
+  setOnline: "SET_ONLINE",
 };
 
 export const globalReducer = (state, action) => {
@@ -33,6 +35,8 @@ export const globalReducer = (state, action) => {
       return setSuccessResponse(state, action.payload);
     case GLOBAL_ACTION_TYPE.setMessage:
       return setMessageResponse(state, action.payload);
+    case GLOBAL_ACTION_TYPE.setOnline:
+      return setOnlineResponse(state, action.payload);
     default:
       return state;
   }
@@ -82,5 +86,12 @@ const setMessageResponse = (state, payload) => {
       title,
       message,
     },
+  };
+};
+
+const setOnlineResponse = (state, payload) => {
+  return {
+    ...state,
+    online: payload,
   };
 };

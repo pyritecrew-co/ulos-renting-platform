@@ -74,3 +74,19 @@ h2 {
     opacity: 1;
   }
 }
+
+/* CARD LOADING DISPLAY CARD WIDTH SIZE */
+.contain-grid-size {
+  width: 460px;
+}
+
+/*
+* Media Query
+*/
+
+@media only screen and (max-width: 768px) {
+  /* CARD LOADING DISPLAY CARD WIDTH SIZE */
+  .contain-grid-size {
+    width: 360px;
+  }
+}

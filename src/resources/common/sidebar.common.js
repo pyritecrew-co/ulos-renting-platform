@@ -53,7 +53,7 @@ const SidebarCommon = () => {
                       {global.currentUser !== null && (
                         <div>
                           <div>
-                            <p className="p-4">{global.currentUser?.email}</p>
+                            <p className="p-4">{global?.currentUser?.email}</p>
                           </div>
                           <hr />
                         </div>
