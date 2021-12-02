@@ -14,14 +14,12 @@ import { authentication } from "../config/firebase.config";
  */
 const login = async (values) => {
   let { email, password } = values;
-
-  await signInWithEmailAndPassword(authentication, email, password)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  try {
+    await signInWithEmailAndPassword(authentication, email, password);
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
 };
 
 /**
@@ -30,14 +28,12 @@ const login = async (values) => {
  */
 const register = async (values) => {
   let { email, password } = values;
-
-  await createUserWithEmailAndPassword(authentication, email, password)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  try {
+    await createUserWithEmailAndPassword(authentication, email, password);
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
 };
 
 /**
