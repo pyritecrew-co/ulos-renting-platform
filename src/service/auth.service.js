@@ -54,7 +54,7 @@ const logout = async () => {
 };
 
 /**
- * An objectthat holds authentication functionalities
+ * An object that holds authentication functionalities
  */
 const AuthService = {
   login: login,

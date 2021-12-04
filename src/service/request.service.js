@@ -38,6 +38,11 @@ const readAllRequestItems = async () => {
   }
 };
 
+/**
+ * READ A REQUEST PER USER
+ * @param {string} userID id of user is required
+ * @returns user made requests
+ */
 const readRequestsOfUser = async (userID) => {
   try {
     const find = query(REQUEST_QUERY, where("id_user", "==", userID));
@@ -46,7 +51,6 @@ const readRequestsOfUser = async (userID) => {
       ...items.data(),
       id_req: items.id,
     }));
-
     return userRequests;
   } catch (error) {
     return new Error(error);
@@ -66,6 +70,9 @@ const deleteRequestItem = async (requestID) => {
   }
 };
 
+/**
+ * An object that holds all requests crud functionalities
+ */
 const RequestService = {
   getAllRequests: readAllRequestItems,
   getUserRequest: readRequestsOfUser,

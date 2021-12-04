@@ -29,8 +29,8 @@ const RequestCardCommon = ({
   };
   return (
     <React.Fragment>
-      <div>
-        <div className="transition delay-200 transform hover:-translate-y-2 border p-10 shadow-xl rounded">
+      <div className="">
+        <div className="w-full transition delay-200 transform hover:-translate-y-2 border py-8 px-5 lg:p-10 shadow-xl rounded">
           <p className="lg:text-3xl font-bold truncate">User: {user}</p>
           <p>
             is looking for <strong>{rentalProduct}</strong>

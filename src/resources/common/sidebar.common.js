@@ -82,20 +82,21 @@ const SidebarCommon = () => {
                                 );
                               }
                             } else {
-                              return (
-                                <li
-                                  className="p-3 hover:bg-gray-200"
-                                  key={item.id}
-                                  onClick={() => {
-                                    navigate(item.route);
-                                    globalDispatch({
-                                      type: GLOBAL_ACTION_TYPE.setToggle,
-                                    });
-                                  }}
-                                >
-                                  {item.name}
-                                </li>
-                              );
+                              if (item.name !== "My Lists")
+                                return (
+                                  <li
+                                    className="p-3 hover:bg-gray-200"
+                                    key={item.id}
+                                    onClick={() => {
+                                      navigate(item.route);
+                                      globalDispatch({
+                                        type: GLOBAL_ACTION_TYPE.setToggle,
+                                      });
+                                    }}
+                                  >
+                                    {item.name}
+                                  </li>
+                                );
                             }
                             return null;
                           })}

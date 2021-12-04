@@ -18,21 +18,24 @@ const UserRequestsComponent = () => {
       payload: true,
     });
     onAuthStateChanged(authentication, async (user) => {
-      await RequestService.getUserRequest(user.uid)
-        .then((res) => {
-          if (res.length === 0) {
-            userItemDispatch({
-              type: USERITEM_ACTION_TYPE.setUserRequest,
-              payload: null,
-            });
-          } else {
-            userItemDispatch({
-              type: USERITEM_ACTION_TYPE.setUserRequest,
-              payload: res,
-            });
-          }
-        })
-        .catch((err) => console.log(err.message));
+      if (user.id) {
+        await RequestService.getUserRequest(user.uid)
+          .then((res) => {
+            if (res.length === 0) {
+              userItemDispatch({
+                type: USERITEM_ACTION_TYPE.setUserRequest,
+                payload: null,
+              });
+            } else {
+              userItemDispatch({
+                type: USERITEM_ACTION_TYPE.setUserRequest,
+                payload: res,
+              });
+            }
+          })
+          .catch((err) => console.log(err.message));
+      }
+
       userItemDispatch({
         type: USERITEM_ACTION_TYPE.setBusy,
         payload: false,

@@ -13,8 +13,11 @@ const UserItemPage = () => {
     <React.Fragment>
       <UserItemProvider>
         <div className="mx-3 flex flex-col items-center lg:items-start lg:mx-0 my-6">
-          <div className="w-full flex flex-row justify-between">
-            <h1 className="truncate">Your Items for Rent</h1>
+          <div className="w-full flex flex-col lg:flex-row lg:justify-between text-center">
+            <h1 className="truncate text-xl lg:text-3xl">
+              Your Items for Rent
+            </h1>
+            <br className="block lg:hidden" />
             <div>
               <button
                 className="px-5"
@@ -31,8 +34,9 @@ const UserItemPage = () => {
         </div>
         <br />
         <div className="mx-3 flex flex-col items-center lg:items-start lg:mx-0 my-6">
-          <div className="w-full flex flex-row justify-between">
-            <h1 className="truncate">Your Requests</h1>
+          <div className="w-full flex flex-col lg:flex-row lg:justify-between text-center">
+            <h1 className="truncate text-xl lg:text-3xl">Your Requests</h1>
+            <br className="block lg:hidden" />
             <div>
               <button
                 className="px-5"
