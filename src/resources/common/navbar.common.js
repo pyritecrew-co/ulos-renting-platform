@@ -14,7 +14,7 @@ const NavbarCommon = () => {
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row justify-between w-full items-center">
           <div className="ml-3 lg:ml-0 py-6 text-gray-900 font-bold text-2xl cursor-pointer">
-            Ulos
+            ULOS RENTING
           </div>
           <div
             className="lg:hidden rounded p-3 hover:bg-gray-200 cursor-pointer"
@@ -31,21 +31,23 @@ const NavbarCommon = () => {
         <div className="hidden lg:flex lg:flex-row lg:space-x-5 items-center justify-center">
           {navbarItems.map((item) => {
             if (global.currentUser === null) {
-              return (
-                <div
-                  key={item.id}
-                  className="hover:text-gray-500 cursor-pointer"
-                  onClick={() => navigate(item.route)}
-                >
-                  {item.name}
-                </div>
-              );
+              if (item.name !== "My Lists") {
+                return (
+                  <div
+                    key={item.id}
+                    className="hover:text-gray-500 cursor-pointer truncate"
+                    onClick={() => navigate(item.route)}
+                  >
+                    {item.name}
+                  </div>
+                );
+              }
             } else {
               if (item.name !== "Login" && item.name !== "Signup") {
                 return (
                   <div
                     key={item.id}
-                    className="hover:text-gray-500 cursor-pointer"
+                    className="hover:text-gray-500 cursor-pointer truncate"
                     onClick={() => navigate(item.route)}
                   >
                     {item.name}
@@ -66,6 +68,7 @@ export default NavbarCommon;
 export const UserCredentialInfo = () => {
   let { global } = useGlobalContext();
   let { renderBusy } = useResponseHelper();
+  let navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -77,12 +80,15 @@ export const UserCredentialInfo = () => {
           <div className="flex flex-row items-center justify-end cursor-pointer">
             <p className="text-xs text-gray-400">{global.currentUser?.email}</p>
             <p className="text-xs text-gray-400 px-2">|</p>
+            <p className="text-xs text-gray-400 hover:text-white">SETTINGS</p>
+            <p className="text-xs text-gray-400 px-2">|</p>
             <p
               className="text-xs text-gray-400 hover:text-white"
               onClick={async () => {
                 renderBusy(true);
                 await AuthService.logout();
                 renderBusy(false);
+                navigate("/home");
               }}
             >
               LOGOUT
@@ -119,5 +125,10 @@ export const navbarItems = [
     id: 4,
     name: "Signup",
     route: "/signup",
+  },
+  {
+    id: 5,
+    name: "My Lists",
+    route: "/my-lists",
   },
 ];

@@ -3,9 +3,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "@firebase/auth";
-import { authentication } from "../config/firebase.config";
+import { collection, doc, setDoc } from "@firebase/firestore";
+import { authentication, firestore } from "../config/firebase.config";
 
-// FIXME: from offline going to online login creates an infinite loading screen
+const USERS_QUERY = collection(firestore, "users");
 
 /**
  * Login Function
@@ -29,7 +30,11 @@ const login = async (values) => {
 const register = async (values) => {
   let { email, password } = values;
   try {
-    await createUserWithEmailAndPassword(authentication, email, password);
+    await createUserWithEmailAndPassword(authentication, email, password)
+      .then(async (userCredential) => {
+        await setDoc(doc(USERS_QUERY, userCredential.user.uid), { email });
+      })
+      .catch((err) => console.log(err));
   } catch (error) {
     console.log(error.message);
     throw error;

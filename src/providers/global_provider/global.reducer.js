@@ -9,6 +9,7 @@ export const INIT_GLOBAL = {
     message: "",
   },
   online: true,
+  refresh: false,
 };
 
 export const GLOBAL_ACTION_TYPE = {
@@ -19,6 +20,7 @@ export const GLOBAL_ACTION_TYPE = {
   setBusy: "SET_BUSY",
   setMessage: "SET_MESSAGE",
   setOnline: "SET_ONLINE",
+  setReload: "SET_RELOAD",
 };
 
 export const globalReducer = (state, action) => {
@@ -37,6 +39,9 @@ export const globalReducer = (state, action) => {
       return setMessageResponse(state, action.payload);
     case GLOBAL_ACTION_TYPE.setOnline:
       return setOnlineResponse(state, action.payload);
+    case GLOBAL_ACTION_TYPE.setReload:
+      return setRefreshResponse(state);
+
     default:
       return state;
   }
@@ -93,5 +98,12 @@ const setOnlineResponse = (state, payload) => {
   return {
     ...state,
     online: payload,
+  };
+};
+
+const setRefreshResponse = (state) => {
+  return {
+    ...state,
+    refresh: !state.refresh,
   };
 };

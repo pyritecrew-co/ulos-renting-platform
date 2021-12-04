@@ -1,45 +1,47 @@
+import { onAuthStateChanged } from "@firebase/auth";
 import React, { useEffect } from "react";
-import RequestCardCommon from "../../../common/request_card.common";
-import { useRequestContext } from "../../../../providers/request_provider/request.context";
-import { REQUEST_ACTION_TYPE } from "../../../../providers/request_provider/request.reducer";
-import RequestService from "../../../../service/request.service";
+import { authentication } from "../../../../config/firebase.config";
 import { useGlobalContext } from "../../../../providers/global_provider/global.context";
+import { useUserItemContext } from "../../../../providers/user_item_provider/user_item.context";
+import { USERITEM_ACTION_TYPE } from "../../../../providers/user_item_provider/user_item.reducer";
+import RequestService from "../../../../service/request.service";
 import CardLoadingCommon from "../../../common/card_loading.common";
+import RequestCardCommon from "../../../common/request_card.common";
 
-const DisplayRequestsComponent = () => {
-  const { request, requestDispatch } = useRequestContext();
+const UserRequestsComponent = () => {
   const { global } = useGlobalContext();
+  const { userItem, userItemDispatch } = useUserItemContext();
 
-  const fetchOnLoad = async () => {
-    requestDispatch({
-      type: REQUEST_ACTION_TYPE.setBusy,
+  const fetchAllOwnRequest = () => {
+    userItemDispatch({
+      type: USERITEM_ACTION_TYPE.setBusy,
       payload: true,
     });
-
-    await RequestService.getAllRequests()
-      .then((res) => {
-        if (res?.length === 0) {
-          requestDispatch({
-            type: REQUEST_ACTION_TYPE.setAllRequest,
-            payload: null,
-          });
-        } else {
-          requestDispatch({
-            type: REQUEST_ACTION_TYPE.setAllRequest,
-            payload: res,
-          });
-        }
-      })
-      .catch((err) => console.log(err.message));
-
-    requestDispatch({
-      type: REQUEST_ACTION_TYPE.setBusy,
-      payload: false,
+    onAuthStateChanged(authentication, async (user) => {
+      await RequestService.getUserRequest(user.uid)
+        .then((res) => {
+          if (res.length === 0) {
+            userItemDispatch({
+              type: USERITEM_ACTION_TYPE.setUserRequest,
+              payload: null,
+            });
+          } else {
+            userItemDispatch({
+              type: USERITEM_ACTION_TYPE.setUserRequest,
+              payload: res,
+            });
+          }
+        })
+        .catch((err) => console.log(err.message));
+      userItemDispatch({
+        type: USERITEM_ACTION_TYPE.setBusy,
+        payload: false,
+      });
     });
   };
 
   useEffect(() => {
-    fetchOnLoad();
+    fetchAllOwnRequest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [global.refresh]);
 
@@ -53,7 +55,7 @@ const DisplayRequestsComponent = () => {
     );
   }
 
-  if (request.allRequests === null) {
+  if (userItem.userRequests === null) {
     return (
       <div className="flex flex-row w-full h-80 justify-center items-center text-center">
         <h2>There are no requests at the moment...</h2>
@@ -64,7 +66,8 @@ const DisplayRequestsComponent = () => {
   return (
     <React.Fragment>
       <div className="w-full grid justify-items-center grid-cols-1 lg:grid-cols-3 lg:justify-items-stretch gap-6">
-        {request?.allRequests?.map((element) => {
+        {userItem.loading && <CardLoadingCommon />}
+        {userItem.userRequests.map((element) => {
           let {
             id_req,
             id_user,
@@ -88,10 +91,9 @@ const DisplayRequestsComponent = () => {
             />
           );
         })}
-        {request.loading && <CardLoadingCommon />}
       </div>
     </React.Fragment>
   );
 };
 
-export default DisplayRequestsComponent;
+export default UserRequestsComponent;

@@ -1,9 +1,28 @@
 import { firestore } from "../config/firebase.config";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+} from "@firebase/firestore";
 
 const REQUEST_QUERY = collection(firestore, "requests");
 
-const createRequestItem = (userID) => {};
+/**
+ * CREATE A NEW REQUEST ENTRY TO FIRESTORE
+ * @param {string} userID the current user id
+ * @param {object} values the form/input values
+ */
+const createRequestItem = async (userID, values) => {
+  try {
+    await addDoc(REQUEST_QUERY, { ...values, id_user: userID });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 /**
  * GET ALL REQUEST STORED IN FIRESTORE
@@ -19,17 +38,38 @@ const readAllRequestItems = async () => {
   }
 };
 
-const readOneRequestItem = async (requestID) => {};
+const readRequestsOfUser = async (userID) => {
+  try {
+    const find = query(REQUEST_QUERY, where("id_user", "==", userID));
+    const data = await getDocs(find);
+    let userRequests = data.docs.map((items) => ({
+      ...items.data(),
+      id_req: items.id,
+    }));
 
-const updateRequestItem = async (requestID) => {};
+    return userRequests;
+  } catch (error) {
+    return new Error(error);
+  }
+};
 
-const deleteRequestItem = async (requestID) => {};
+/**
+ * DELETE ID FROM FIRESTORE USING REQUEST ID
+ * @param {string} requestID request id that will be deleted
+ */
+const deleteRequestItem = async (requestID) => {
+  try {
+    const requestTag = doc(firestore, "requests", requestID);
+    await deleteDoc(requestTag);
+  } catch (error) {
+    throw error;
+  }
+};
 
 const RequestService = {
   getAllRequests: readAllRequestItems,
-  getOneRequest: readOneRequestItem,
+  getUserRequest: readRequestsOfUser,
   addRequest: createRequestItem,
-  editRequest: updateRequestItem,
   removeRequest: deleteRequestItem,
 };
 
