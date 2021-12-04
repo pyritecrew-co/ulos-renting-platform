@@ -18,7 +18,7 @@ const UserRequestsComponent = () => {
       payload: true,
     });
     onAuthStateChanged(authentication, async (user) => {
-      if (user.id) {
+      if (user) {
         await RequestService.getUserRequest(user.uid)
           .then((res) => {
             if (res.length === 0) {
